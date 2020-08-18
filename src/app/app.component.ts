@@ -1,9 +1,9 @@
 import { Component, VERSION } from '@angular/core';
 
 import { Hero }  from '../hero';
-import { calculate, getToken, listCurrency as f } from '../backend'
-
-import { HttpClient } from '@angular/common/http';
+//import { calculate, getToken, listCurrency as f } from '../backend'
+import { NgxFancyLoggerService } from 'ngx-fancy-logger';
+import { HttpClient ,HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'my-app',
@@ -11,6 +11,31 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: [ './app.component.css' ]
 })
 export class AppComponent  {
+
+  //const headerss = new NgxFancyLoggerService();
+
+  constructor(private http: HttpClient , private  logger: NgxFancyLoggerService) { logger.header('App Component Loaded...') }
+ 
+ private  logger1: NgxFancyLoggerService;
+
+
+
+  callServer(port) {
+    const headers = new HttpHeaders()
+          .set('Authorization', 'my-auth-token')
+          .set('Content-Type', 'application/json');
+    this.http.post<any>(`https://jsonplaceholder.typicode.com/posts`, {}, {
+      headers: headers
+    })
+    .subscribe(data => {
+      this.logger1.info(data);
+      console.log(data);
+      this.logger.debug('fetched heroes');
+      this.logger.info('This is a info log', {data: {a: 20, b:30 }});
+      this.logger.debugOperator('Result')
+    });
+  }
+
   name = 'Angular ' + VERSION.major;
 
   //fruits: string[] =  f.listCurrency()
