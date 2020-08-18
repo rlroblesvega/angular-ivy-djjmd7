@@ -12,7 +12,7 @@ import { HttpClient ,HttpHeaders } from '@angular/common/http';
 export class AppComponent  implements OnInit {
 
   todaydate;
-  
+
   result;
   //const headerss = new NgxFancyLoggerService();
 
@@ -28,10 +28,9 @@ export class AppComponent  implements OnInit {
   public currencies = [];
    ngOnInit() {
 
-      this.todaydate = this.myservice.getToken().subscribe((res:any)=> {
+      this.todaydate = this.myservice.getToken().subscribe((res: any)=> {
         console.log(this.todaydate)
       });
-      console.log(this.todaydate)
       /*
       this.myservice.getCurrencies(getToken).subscribe((data) => {
          this.currencies = data;
