@@ -1,6 +1,6 @@
 import { Component, VERSION , OnInit} from '@angular/core';
 import { MyserviceService } from './myservice.service';
-import { Hero }  from '../hero';
+import { Fields }  from './fields';
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { HttpClient ,HttpHeaders } from '@angular/common/http';
 
@@ -12,7 +12,6 @@ import { HttpClient ,HttpHeaders } from '@angular/common/http';
 export class AppComponent  implements OnInit {
 
   todaydate;
-
   result;
   //const headerss = new NgxFancyLoggerService();
 
@@ -21,6 +20,9 @@ export class AppComponent  implements OnInit {
       private  logger: NgxFancyLoggerService , 
       private myservice: MyserviceService
     ){ 
+      this.todaydate = this.myservice.getAllPlayers().subscribe((res: any)=> {
+        console.log(this.todaydate)
+      });
       logger.header('App Component Loaded...') 
     }
 
@@ -28,7 +30,7 @@ export class AppComponent  implements OnInit {
   public currencies = [];
    ngOnInit() {
 
-      this.todaydate = this.myservice.getToken().subscribe((res: any)=> {
+      this.todaydate = this.myservice.getToken().subscribe(data => {
         console.log(this.todaydate)
       });
       /*
@@ -40,33 +42,11 @@ export class AppComponent  implements OnInit {
    }
 
 
- //private  logger1: NgxFancyLoggerService;
 
-
-  /*
-  callServer(port) {
-    const headers = new HttpHeaders()
-          .set('Authorization', 'my-auth-token')
-          .set('Content-Type', 'application/json');
-    this.http.post<any>(`https://jsonplaceholder.typicode.com/posts`, {}, {
-      headers: headers
-    })
-    .subscribe(data => {
-      this.logger1.info(data);
-      console.log(data);
-      this.logger.debug('fetched heroes');
-      this.logger.info('This is a info log', {data: {a: 20, b:30 }});
-      this.logger.debugOperator('Result')
-    });
-  }
-  */
 
   name = 'Angular ' + VERSION.major;
 
-  powers = ['Really Smart', 'Super Flexible',
-            'Super Hot', 'Weather Changer'];
-
-  model = new Hero(0, 'Dr IQ', this.powers[0], 'Chuck Overstreet');
+  model = new Fields('','',0,0);
 
   submitted = false;
 
@@ -84,24 +64,7 @@ export class AppComponent  implements OnInit {
   // TODO: Remove this when we're done
   get diagnostic() { return JSON.stringify(this.model); }
 
-  newHero() {
-    this.model = new Hero(42, '', '');
-  }
-
-  skyDog(): Hero {
-    let myHero =  new Hero(42, 'SkyDog',
-                           'Fetch any object at any distance',
-                           'Leslie Rollover');
-    console.log('My hero is called ' + myHero.name); // "My hero is called SkyDog"
-    return myHero;
-  }
-
-  //////// NOT SHOWN IN DOCS ////////
-
-  // Reveal in html:
-  //   Name via form.controls = {{showFormControls(heroForm)}}
-  showFormControls(form: any) {
-    return form && form.controls['name'] &&
-    form.controls['name'].value; // Dr. IQ
+  newCalculation() {
+    this.model = new Fields('','',0,0);
   }
 }

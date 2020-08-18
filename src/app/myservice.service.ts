@@ -11,7 +11,8 @@ const HTTPS = HAS_HTTPS == 'S' ? 'https' : 'http';
 const URL_BASE = ``
 
 const URL_API_CALCULATE = `${URL_BASE}/exchange-rate/calculation`
-const URL_API_TOKEN = `${URL_BASE}/token`
+//const URL_API_TOKEN = `${URL_BASE}/token`
+const URL_API_TOKEN = `https://jsonplaceholder.typicode.com/posts`
 const URL_API_CURRENCY = `${URL_BASE}/exchange-rate/list`
 const URL_API_UPDATE = `${URL_BASE}/exchange-rate/list`
 
@@ -36,7 +37,7 @@ export class MyserviceService {
     return this.http.post(URL_API_CALCULATE,body,{headers: headers});
    }
 
-   getToken(): Observable<any> {
+   getToken(){
     const body = {
       "email":"admin@leadgods.com",
       "password":"admin"
