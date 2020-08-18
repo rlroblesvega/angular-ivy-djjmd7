@@ -6,6 +6,12 @@
 <div class="container">
   <div [hidden]="submitted">
     <h1>Hero Form</h1>
+
+
+    <p>
+    Today's Date : {{todaydate}}
+  </p>
+
     <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
       <div class="form-group">
         <label for="name">Name</label>
@@ -19,6 +25,8 @@
         </div>
       </div>
 
+
+
       <div class="form-group">
         <label for="alterEgo">Alter Ego</label>
         <input type="text" class="form-control" id="alterEgo"
@@ -31,7 +39,7 @@
                 required
                 [(ngModel)]="model.power" name="power"
                 #power="ngModel">
-          <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
+          <option *ngFor="let pow of currencies" [value]="pow">{{pow}}</option>
         </select>
         <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
           Power is required

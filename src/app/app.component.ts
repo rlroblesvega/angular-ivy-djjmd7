@@ -1,7 +1,6 @@
-import { Component, VERSION } from '@angular/core';
-
+import { Component, VERSION , OnInit} from '@angular/core';
+import { MyserviceService } from './myservice.service';
 import { Hero }  from '../hero';
-//import { calculate, getToken, listCurrency as f } from '../backend'
 import { NgxFancyLoggerService } from 'ngx-fancy-logger';
 import { HttpClient ,HttpHeaders } from '@angular/common/http';
 
@@ -10,16 +9,42 @@ import { HttpClient ,HttpHeaders } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.css' ]
 })
-export class AppComponent  {
+export class AppComponent  implements OnInit {
 
+  todaydate;
+  
+  result;
   //const headerss = new NgxFancyLoggerService();
 
-  constructor(private http: HttpClient , private  logger: NgxFancyLoggerService) { logger.header('App Component Loaded...') }
- 
- private  logger1: NgxFancyLoggerService;
+    constructor(
+      private http: HttpClient , 
+      private  logger: NgxFancyLoggerService , 
+      private myservice: MyserviceService
+    ){ 
+      logger.header('App Component Loaded...') 
+    }
+
+  public persondata = [];
+  public currencies = [];
+   ngOnInit() {
+
+      this.todaydate = this.myservice.getToken().subscribe((res:any)=> {
+        console.log(this.todaydate)
+      });
+      console.log(this.todaydate)
+      /*
+      this.myservice.getCurrencies(getToken).subscribe((data) => {
+         this.currencies = data;
+         console.log(this.currencies);
+      });
+      */
+   }
 
 
+ //private  logger1: NgxFancyLoggerService;
 
+
+  /*
   callServer(port) {
     const headers = new HttpHeaders()
           .set('Authorization', 'my-auth-token')
@@ -35,12 +60,10 @@ export class AppComponent  {
       this.logger.debugOperator('Result')
     });
   }
+  */
 
   name = 'Angular ' + VERSION.major;
 
-  //fruits: string[] =  f.listCurrency()
-  
-  //const result:any = listCurrency();
   powers = ['Really Smart', 'Super Flexible',
             'Super Hot', 'Weather Changer'];
 
@@ -51,6 +74,12 @@ export class AppComponent  {
   onSubmit() { 
     this.submitted = true; 
     
+    /*
+    this.myservice.calculate(getToken,{}).subscribe((data) => {
+         this.persondata = Array.from(Object.keys(data), k=>data[k]);
+         console.log(this.persondata);
+    });
+    */
   }
 
   // TODO: Remove this when we're done

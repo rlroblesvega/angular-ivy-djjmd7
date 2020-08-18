@@ -1,5 +1,5 @@
 import './polyfills';
-import { calculate , getToken } from "./backend";
+//import { calculate , getToken } from "./backend";
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
